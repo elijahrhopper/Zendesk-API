@@ -6,9 +6,9 @@ from requests import auth
 def main():
     print("Welcome to the Zendesk API coding assesment! Enter your credentials to begin:")
     email = str(input("Input your email: "))
-    authKey = "auth_key_here"
-    if email == "Y": #TODO: DELETE THIS -- IT IS FOR TESTING PURPOSES ONLY
-        email = "email_here"
+    authKey = "0TGCws2yIfaZrcIAmdUzuOAGaPkhYozJJZS0UG9u"
+    if email == "Y":
+        email = "ehopper3@gatech.edu"
     else:
         authKey = str(input("Input your auth token: "))
 
@@ -18,8 +18,8 @@ def main():
     
 
     tickets = response.json()
-    for i in range(5):
-        print(str(i) + ": " + tickets["tickets"][i]["description"])
+    for i in range(100):
+        print(str(i) + ": " + tickets["tickets"][i]["subject"])
     
     if response:
         print('Response OK')

@@ -6,9 +6,9 @@ def main():
     accessGranted = False
     while (not accessGranted):
         email = str(input("Input your email: "))
-        authKey = "TESTING ONLY"
+        authKey = "TEMP"
         if email == "Y":
-            email = "TESTING ONLY"
+            email = "TEMP"
         else:
             authKey = str(input("Input your auth token: "))
         
@@ -24,16 +24,22 @@ def main():
         except:
             print("Unknown error!")
 
+    print("------------------------------------------------------------------------------------")
     print("Type \'help\' for a list of avaliable functions. Type \'exit\' to end the program.")
     currentFunc = str(input())
     response = None
     while (currentFunc != "exit"):
         if currentFunc == "help":
-            print("this is the help guide!")
-        elif currentFunc == "1":
-            print("1")
-        elif currentFunc == "2":
-            print("2")
+            print("\n|---------------------------------------|")
+            print("|\tThis is the help guide!\t\t|")
+            print("| \'exit\' - quits the program            |")
+            print("| \'list\' - lists all tickets            |")
+            print("| \'find\' - finds one specific ticket    |")
+            print("|---------------------------------------|\n")
+        elif currentFunc == "list":
+            print("list")
+        elif currentFunc == "find":
+            print("find")
         else:
             print("Please enter a valid command!")
         currentFunc = str(input("Input your next command (\'help\' for help, \'exit\' to quit):\n"))
