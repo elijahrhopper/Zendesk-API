@@ -10,9 +10,9 @@ def main():
     accessGranted = False
     while (not accessGranted):
         email = str(input("Input your email: "))
-        authKey = "TEMP"
+        authKey = "0TGCws2yIfaZrcIAmdUzuOAGaPkhYozJJZS0UG9u"
         if email == "Y":
-            email = "TEMP"
+            email = "ehopper3@gatech.edu"
         else:
             authKey = str(input("Input your auth token: "))
         
@@ -69,7 +69,21 @@ def main():
                     print("Please enter a valid command!")
             
         elif currentFunc == "find":
-            print("find")
+            indexToFind = -1
+            while currentFunc != "exit":
+                currentFunc = input("What ticket number would you like to lookup?\n")
+                if currentFunc == "exit":
+                    break
+                index = -1
+                try:
+                    index = int(currentFunc)
+                    if index >= 1 and index <= numOfTickets:
+                        printTicket(tickets, index - 1)
+                    else:
+                        print("Please enter a valid index! (1 - # of tickets)")
+                except:
+                    print("Please enter an integer value index or type \'exit\' to exit!")
+                
         else:
             print("Please enter a valid command!")
         currentFunc = str(input("Input your next command (\'help\' for help, \'exit\' to quit):\n"))
