@@ -6,9 +6,9 @@ from requests import auth
 def main():
     print("Welcome to the Zendesk API coding assesment! Enter your credentials to begin:")
     email = str(input("Input your email: "))
-    authKey = "0TGCws2yIfaZrcIAmdUzuOAGaPkhYozJJZS0UG9u"
+    authKey = ""
     if email == "Y":
-        email = "ehopper3@gatech.edu"
+        email = ""
     else:
         authKey = str(input("Input your auth token: "))
 

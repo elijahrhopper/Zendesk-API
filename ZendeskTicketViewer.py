@@ -1,4 +1,8 @@
 import requests
+from requests.sessions import TooManyRedirects
+
+def printTicket(ticketsArr, index):
+    print(str(index + 1) + ": " + ticketsArr["tickets"][index]["subject"])
 
 def main():
     print("Hello and welcome to the Zendesk API ticket viewer coding assesment! Enter your credentials to begin:")
@@ -27,7 +31,7 @@ def main():
     print("------------------------------------------------------------------------------------")
     print("Type \'help\' for a list of avaliable functions. Type \'exit\' to end the program.")
     currentFunc = str(input())
-    response = None
+    tickets = response.json()
     while (currentFunc != "exit"):
         if currentFunc == "help":
             print("\n|---------------------------------------|")
@@ -37,7 +41,33 @@ def main():
             print("| \'find\' - finds one specific ticket    |")
             print("|---------------------------------------|\n")
         elif currentFunc == "list":
-            print("list")
+            numOfTickets = len(tickets["tickets"])
+            min = 0
+            max = 15
+            while currentFunc != "exit":
+                if max > numOfTickets:
+                    max = numOfTickets
+                print("---------------------------------------")
+                for i in range(min, max):
+                    printTicket(tickets, i)
+                print("---------------------------------------")
+                if (min == 0 and max == numOfTickets):
+                    currentFunc = "exit"
+                elif min == 0:
+                    currentFunc = input("Enter a command: \'next\' for next page, \'exit\' to exit\n")
+                elif max == numOfTickets:
+                    currentFunc = input("Enter a command: \'prev\' for previous page, \'exit\' to exit\n")
+                else:
+                    currentFunc = input("Enter a command: \'next\' for next page, \'prev\' for previous page, \'exit\' to exit\n")
+                if currentFunc == "next" and max != numOfTickets:
+                    min += 15
+                    max += 15
+                elif currentFunc == "prev" and min != 0:
+                    min -= 15
+                    max = min + 15
+                elif currentFunc != "exit":
+                    print("Please enter a valid command!")
+            
         elif currentFunc == "find":
             print("find")
         else:
