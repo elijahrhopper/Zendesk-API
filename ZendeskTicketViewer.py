@@ -44,7 +44,7 @@ def main():
             print("Unknown error!")
 
     print("------------------------------------------------------------------------------------")
-    print("Type \'help\' for a list of avaliable functions. Type \'exit\' to end the program.")
+    print("Type \'list\' or \'find\' to view tickets, or type \'help\' for help, and \'exit\' to quit")
     currentFunc = str(input())
     tickets = response.json()
     while (currentFunc != "exit"):
@@ -59,34 +59,39 @@ def main():
             numOfTickets = len(tickets["tickets"])
             min = 0
             max = 15
+            newPage = True
             while currentFunc != "exit":
                 if max > numOfTickets:
                     max = numOfTickets
-                print("---------------------------------------")
-                for i in range(min, max):
-                    printTicket(tickets, i)
+                if newPage:
                     print("---------------------------------------")
+                    for i in range(min, max):
+                        printTicket(tickets, i)
+                        print("---------------------------------------")
                 if (min == 0 and max == numOfTickets):
                     currentFunc = "exit"
                 elif min == 0:
-                    currentFunc = input("Enter a command: \'next\' for next page, \'exit\' to exit\n")
+                    currentFunc = input("Enter a command: \'next\' for next page, \'exit\' to exit list view\n")
                 elif max == numOfTickets:
-                    currentFunc = input("Enter a command: \'prev\' for previous page, \'exit\' to exit\n")
+                    currentFunc = input("Enter a command: \'prev\' for previous page, \'exit\' to exit list view\n")
                 else:
-                    currentFunc = input("Enter a command: \'next\' for next page, \'prev\' for previous page, \'exit\' to exit\n")
+                    currentFunc = input("Enter a command: \'next\' for next page, \'prev\' for previous page, \'exit\' to leave list view\n")
                 if currentFunc == "next" and max != numOfTickets:
                     min += 15
                     max += 15
+                    newPage = True
                 elif currentFunc == "prev" and min != 0:
                     min -= 15
                     max = min + 15
+                    newPage = True
                 elif currentFunc != "exit":
                     print("Please enter a valid command!")
+                    newPage = False
             
         elif currentFunc == "find":
             numOfTickets = len(tickets["tickets"])
             while currentFunc != "exit":
-                currentFunc = input("What ticket number would you like to lookup?\n")
+                currentFunc = input("What ticket number would you like to lookup? Or type \'exit\' to leave find view\n")
                 if currentFunc == "exit":
                     break
                 index = -1
@@ -95,13 +100,13 @@ def main():
                     if index >= 1 and index <= numOfTickets:
                         printTicketDetails(tickets, index - 1)
                     else:
-                        print("Please enter a valid index! (1 - # of tickets)")
+                        print("Please enter a valid index (1 - # of tickets)! Or type \'exit\' to leave find view.")
                 except:
-                    print("Please enter an integer value index or type \'exit\' to exit!")
+                    print("Please enter an integer value index or type \'exit\' to leave find view!")
                 
         else:
             print("Please enter a valid command!")
-        currentFunc = str(input("Input your next command (\'help\' for help, \'exit\' to quit):\n"))
+        currentFunc = str(input("Type \'list\' or \'find\' to view tickets, or type \'help\' for help, and \'exit\' to quit\n"))
 
     print("Thank you for using the Zendesk API ticket viewer! Have a nice day.")
 
