@@ -2,7 +2,22 @@ import requests
 from requests.sessions import TooManyRedirects
 
 def printTicket(ticketsArr, index):
-    print(str(index + 1) + ": " + ticketsArr["tickets"][index]["subject"])
+    print("Ticket " + str(index + 1) + " with subject \"" + ticketsArr["tickets"][index]["subject"] + "\"")
+    print("Created at: " + ticketsArr["tickets"][index]["created_at"])
+    print("Requester ID: " + str(ticketsArr["tickets"][index]["requester_id"]))
+    print("Assignee ID: " + str(ticketsArr["tickets"][index]["assignee_id"]))
+
+def printTicketDetails(ticketsArr, index):
+    print("------------------------------------------------------------")
+    print("Ticket " + str(index + 1))
+    print("Subject: \"" + ticketsArr["tickets"][index]["subject"] + "\"")
+    print("Created at: " + ticketsArr["tickets"][index]["created_at"])
+    print("Requester ID: " + str(ticketsArr["tickets"][index]["requester_id"]))
+    print("Assignee ID: " + str(ticketsArr["tickets"][index]["assignee_id"]))
+    print("Tags: " + str(ticketsArr["tickets"][index]["tags"]))
+
+    print("\nDescription: " + ticketsArr["tickets"][index]["description"])
+    print("------------------------------------------------------------")
 
 def main():
     print("Hello and welcome to the Zendesk API ticket viewer coding assesment! Enter your credentials to begin:")
@@ -10,9 +25,9 @@ def main():
     accessGranted = False
     while (not accessGranted):
         email = str(input("Input your email: "))
-        authKey = "0TGCws2yIfaZrcIAmdUzuOAGaPkhYozJJZS0UG9u"
+        authKey = "TEMP"
         if email == "Y":
-            email = "ehopper3@gatech.edu"
+            email = "TEMP"
         else:
             authKey = str(input("Input your auth token: "))
         
@@ -50,7 +65,7 @@ def main():
                 print("---------------------------------------")
                 for i in range(min, max):
                     printTicket(tickets, i)
-                print("---------------------------------------")
+                    print("---------------------------------------")
                 if (min == 0 and max == numOfTickets):
                     currentFunc = "exit"
                 elif min == 0:
@@ -69,7 +84,7 @@ def main():
                     print("Please enter a valid command!")
             
         elif currentFunc == "find":
-            indexToFind = -1
+            numOfTickets = len(tickets["tickets"])
             while currentFunc != "exit":
                 currentFunc = input("What ticket number would you like to lookup?\n")
                 if currentFunc == "exit":
@@ -78,7 +93,7 @@ def main():
                 try:
                     index = int(currentFunc)
                     if index >= 1 and index <= numOfTickets:
-                        printTicket(tickets, index - 1)
+                        printTicketDetails(tickets, index - 1)
                     else:
                         print("Please enter a valid index! (1 - # of tickets)")
                 except:
