@@ -21,14 +21,10 @@ def printTicketDetails(ticketsArr, index):
 def login():
     while (True):
         email = str(input("Input your email: "))
-        authKey = "TEMP"
-        if email == "Y":
-            email = "TEMP"
-        elif email == "exit":
+        if email == "exit":
             print("Thank you for using the Zendesk API ticket viewer! Goodbye!")
-            exitCLI()
-        else:
-            authKey = str(input("Input your auth token: "))
+            exit()
+        authKey = str(input("Input your auth token: "))
         
         url = "https://zccelijah.zendesk.com/api/v2/tickets.json"
 
@@ -127,4 +123,6 @@ def main():
         else:
             print("Please enter a valid command!")
 
-main()
+
+if __name__ == "__main__":
+    main()
