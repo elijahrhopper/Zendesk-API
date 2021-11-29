@@ -1,6 +1,7 @@
 import unittest
 from ZendeskTicketViewer import main
 
-# TODO: MAKE TESTS
+class TestCLI(unittest.TestCase):
 
-print("test")
+    def test_deauth(self):
+        self.assertEqual(0, 1)
